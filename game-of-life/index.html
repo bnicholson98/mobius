@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Game of life</title>
+	<link href="gol-style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+</head>
+<body>
+	<div id="container">
+		<canvas id="game" width="100" height="100"></canvas>
+	</div>
+	
+	<div id="controls">
+		<div id="round">Round: <span>0</span></div>
+		
+		<div id="buttons">
+			<button id="run" type="button">Start</button>
+			<button id="step" type="button">Step</button>
+			<button id="clear" type="button">Clear</button>
+			<button id="rand" type="button">Random</button>
+		</div>
+	</div>
+	
+	<div id="settings">
+		<div id="settings-text">Settings</div>
+		
+		<div id="fields">
+			<input type="number" id="xInput" placeholder="X value">
+			<input type="number" id="yInput" placeholder="Y value">
+			<input type="number" id="sizeInput" placeholder="Cell size">
+		</div>
+		<div id="submit">
+			<input type="submit" value="Submit" id="submit">
+		</div>
+			
+	</div>
+	<script src="gol-script.js"></script>
+</body>
+</html>

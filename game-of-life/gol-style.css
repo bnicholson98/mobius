@@ -1,0 +1,59 @@
+html{
+	font-family: "Raleway", sans-serif;
+}
+
+body {
+	background-color: #17e38e;
+}
+
+#container{
+	position: absolute;
+	top: 10px;
+	left: 220px;
+	background: white;
+	border: 1px solid black;
+}
+
+#controls{
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 200px;
+	background: white;
+	border: 1px solid black;
+}
+
+#round{
+	padding: 5px;
+}
+
+#buttons{
+	padding: 5px;
+}
+
+#buttons button{
+	width: 100%;
+	font-family: "Raleway", sans-serif;
+}
+
+#settings{
+	position: absolute;
+	top: 150px;
+	left: 10px;
+	width: 200px;
+	background: white;
+	border: 1px solid black;
+}
+
+#settings-text{
+	padding: 5px;
+}
+
+#fields{
+	padding: 5px;
+}
+
+.field{
+	width: 100%;
+}
+
