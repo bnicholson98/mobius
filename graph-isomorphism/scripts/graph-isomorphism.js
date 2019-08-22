@@ -67,12 +67,6 @@ var cy2 = cytoscape({
 	{	// node w
 		data:{id:'w'}
 	},
-	{
-		data:{id:'u'}
-	},
-	{	// node w
-		data:{id:'v'}
-	},
 	{ // edge xy
       data: { id: 'xy', source: 'x', target: 'y' }
     },
@@ -83,14 +77,14 @@ var cy2 = cytoscape({
       data: { id: 'xz', source: 'x', target: 'z' }
     },
 	{ // edge xy
-      data: { id: 'wu', source: 'w', target: 'u' }
+      data: { id: 'zw', source: 'z', target: 'w' }
+	},
+	{ // edge xy
+      data: { id: 'xw', source: 'x', target: 'w' }
     },
 	{ // edge xy
-      data: { id: 'uv', source: 'u', target: 'v' }
-    },
-	{ // edge xy
-      data: { id: 'wv', source: 'w', target: 'v' }
-    }
+      data: { id: 'yw', source: 'y', target: 'w' }
+	}
   ],
 
   style: [ // the stylesheet for the graph
@@ -121,7 +115,7 @@ var cy2 = cytoscape({
 });
 
 
-subgraphIsoV2(cy1,cy2);
+subgraphIso(cy1,cy2);
 
 
 

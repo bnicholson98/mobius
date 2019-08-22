@@ -23,7 +23,7 @@ Starting function to set the variables and begin the algorithm
 @param - graphA:
 @param - graphB:
 */
-function subgraphIsoV2(graphA, graphB){
+function subgraphIso(graphA, graphB){
 	
 	// create a list of nodes for each graph
 	nodesListA = getNodesList(graphA);
@@ -38,13 +38,13 @@ function subgraphIsoV2(graphA, graphB){
 	pb = B.length;
 	
 	M = initMatrix();
-	console.log("M0:");
-	console.table(M);
+	//console.log("M0:");
+	//console.table(M);
 	
 	var mString = JSON.stringify(M);
 	M_copies[d] = JSON.parse(mString);
-	console.log("M["+d+"]:");
-	console.table(M_copies[d]);
+	//console.log("M["+d+"]:");
+	//console.table(M_copies[d]);
 	
 	// Loop throguh k and F setting each value to zero
 	for (var i=0; i<pa+1; i++)
@@ -52,15 +52,15 @@ function subgraphIsoV2(graphA, graphB){
 	for (var j=0; j<pb; j++)
 		F[j] = 0;
 	
-	console.log("d = "+d);
-	console.log("k = "+k);
-	console.log("F = "+F);
+	//console.log("d = "+d);
+	//console.log("k = "+k);
+	//console.log("F = "+F);
 	
 	// ## ALGORITHM STARTS ## //
 	depthInc();
 	
-	console.log("Iso count = "+isoCount);
 	console.log("Number of checks = "+isoCheckCount);
+	console.log("Iso count = "+isoCount);
 	console.table(isos);
 	
 }
@@ -72,12 +72,12 @@ d-th row and adjusts the matrix M
 function depthInc(){		
 	while (!complete){
 		d++;
-		console.log("d = "+d);
+		//console.log("d = "+d);
 		
 		// Check that a valid value in the d-th row exists
 		if (mdjCheck()){
 			k[d] = k[d-1]+1;
-			console.log("k = "+k);
+			//console.log("k = "+k);
 			
 			/*
 			// Terminate in the active k value is out of scope
@@ -88,33 +88,33 @@ function depthInc(){
 			
 			// Check that a valid value for k exists in the d-th row
 			if (kCheck()){	
-				console.log("k = "+k);
+				//console.log("k = "+k);
 				// Setting F[] to 1 indicates that this column is active
 				F[k[d]-1] = 1;
-				console.log("F = "+F);
+				//console.log("F = "+F);
 				
 				// Loop through the d-th row changing all 1's to 0 except active k
 				for (var j=0; j<pb; j++){
 					if (j != k[d]-1)
 						M[d-1][j] = 0;
 				}
-				console.log("M:");
-				console.table(M);
+				//console.log("M:");
+				//console.table(M);
 				
 				// Store the current state of M
 				var mString = JSON.stringify(M);
 				M_copies[d] = JSON.parse(mString);	
-				console.log("M["+d+"]:");
-				console.table(M_copies[d]);
+				//console.log("M["+d+"]:");
+				//console.table(M_copies[d]);
 				
 				if (d<pa){						
-					console.log("Depth inc");		
+					//console.log("Depth inc");		
 					depthInc();					
 				}else{							
-					console.log("Iso check!");
+					//console.log("Iso check!");
 					isoCheckCount++;			
 					isoCheck();					
-					console.log("depth dec");
+					//console.log("depth dec");
 					depthDec();					
 				}
 			}else
@@ -143,17 +143,17 @@ function depthDec(){
 		var mString = JSON.stringify(M_copies[d]);
 		M = JSON.parse(mString);
 		
-		console.log("d = "+d);
-		console.log("k = "+k);
-		console.log("F = "+F);
-		console.log("M:");
-		console.table(M);
+		//console.log("d = "+d);
+		//console.log("k = "+k);
+		//console.log("F = "+F);
+		//console.log("M:");
+		//console.table(M);
 		
 		if (d>=pa || k[d]>=pb){	
-			console.log("Depth dec");
+			//console.log("Depth dec");
 			depthDec();			
 		}else{					
-			console.log("Depth inc");
+			//console.log("Depth inc");
 			depthInc();			
 		}
 	}
@@ -231,7 +231,7 @@ A '1' in the d-th row in the same column as a '0' in F
 */
 function mdjCheck(){
 	for (var i=0; i<pb; i++){
-		console.log("mdj check");
+		//console.log("mdj check");
 		if ((M[d-1][i] === 1) && (F[i] === 0))
 			return true;
 	}
@@ -245,7 +245,7 @@ A '1' in the d-th row in the same column as a '0' in F
 */
 function kCheck(){
 	for (var i = k[d]-1; i<pb; i++){
-		console.log("k check");		
+		//console.log("k check");		
 		if ((M[d-1][i] === 1) && (F[i] === 0))
 			return true;
 		else
