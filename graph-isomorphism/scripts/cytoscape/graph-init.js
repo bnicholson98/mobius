@@ -75,6 +75,9 @@ var cy2 = cytoscape({
     },
 	{ // edge xy
       data: { id: 'zw', source: 'z', target: 'w' }
+	},
+	{ // edge xy
+      data: { id: 'xz', source: 'x', target: 'z' }
 	}
   ],
 
@@ -105,8 +108,9 @@ var cy2 = cytoscape({
 
 });
 
-//subgraphIso(cy1, cy2);
-console.log(iso(cy1,cy2));
+subgraphIso(cy1, cy2);
+console.log(iso(cy1, cy2));
+
 
 
 
