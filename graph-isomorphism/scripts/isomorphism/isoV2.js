@@ -5,8 +5,8 @@ var nodesListA;
 var nodesListB;
 var A;
 var B;
-var pa;
-var pb;
+var p;
+var p;
 var M;
 var M_copies = [];
 var d = 0;
@@ -23,21 +23,15 @@ Starting function to set the variables and begin the algorithm
 @param - graphA:
 @param - graphB:
 */
-function iso(graphA, graphB){
-	// create a list of nodes for each graph
-	nodesListA = getNodesList(graphA);
-	nodesListB = getNodesList(graphB);
-	if (nodesListA.length != nodesListB.length)
-		return false;
+function isoV2(nodeList, edgesA, edgesB){
 	// create an adjacency matrix for each graph
-	A = matrixOf(graphA, nodesListA);
-	B = matrixOf(graphB, nodesListB);
+	A = matrixOf(edgesA, nodesList);
+	B = matrixOf(edgesB, nodesList);
 	
 	// Number of nodes in graph A and B respectively
-	pa = A.length;
-	pb = B.length;
+	p = nodeList.length;
 	
-	M = initMatrix();
+	M = initMatrix(nodeList);
 	//console.log("M0:");
 	//console.table(M);
 	
@@ -47,9 +41,9 @@ function iso(graphA, graphB){
 	//console.table(M_copies[d]);
 	
 	// Loop throguh k and F setting each value to zero
-	for (var i=0; i<pa+1; i++)
+	for (var i=0; i<p+1; i++)
 		k[i] = 0;
-	for (var j=0; j<pb; j++)
+	for (var j=0; j<p; j++)
 		F[j] = 0;
 	
 	//console.log("d = "+d);
@@ -83,7 +77,7 @@ function depthInc(){
 			
 			/*
 			// Terminate in the active k value is out of scope
-			if (k[d]>pb){
+			if (k[d]>p){
 				complete = true;
 				break;
 			}*/
@@ -96,7 +90,7 @@ function depthInc(){
 				//console.log("F = "+F);
 				
 				// Loop through the d-th row changing all 1's to 0 except active k
-				for (var j=0; j<pb; j++){
+				for (var j=0; j<p; j++){
 					if (j != k[d]-1)
 						M[d-1][j] = 0;
 				}
@@ -109,7 +103,7 @@ function depthInc(){
 				//console.log("M["+d+"]:");
 				//console.table(M_copies[d]);
 				
-				if (d<pa){						
+				if (d<p){						
 					//console.log("Depth inc");		
 					depthInc();					
 				}else{							
@@ -153,7 +147,7 @@ function depthDec(){
 		//console.log("M:");
 		//console.table(M);
 		
-		if (d>=pa || k[d]>=pb){	
+		if (d>=p || k[d]>=p){	
 			//console.log("Depth dec");
 			depthDec();			
 		}else{					
@@ -167,21 +161,6 @@ function depthDec(){
 
 
 
-/* 
-Loop through each node in the given graph and 
-push them to an array.	
-@param - graph:
-@return - nodesList:  
-*/
-function getNodesList(graph){
-	var nodesList = [];
-	graph.nodes().forEach(function(node){
-		nodesList.push(node);
-	});
-	
-	return nodesList;
-}
-
 /*
 Creates an adjacency matrix of the given graph by looping through the nodes
 list and edges of the graph and inserting '1' to all entries in the matrix 
@@ -190,15 +169,15 @@ where the edge exists
 @param - nodesList: List of the nodes in the graph
 @return adjacencyMatrix: 
 */
-function matrixOf(graph, nodesList){
+function matrixOf(edges, nodesList){
 	var adjacencyMatrix = [];
 	
 	for (var i=0; i<nodesList.length; i++){
 		adjacencyMatrix.push([]);
 		for (var j=0; j<nodesList.length; j++){
 			adjacencyMatrix[i].push(0);
-			graph.edges().forEach(function(edge){
-				if ((nodesList[i].id() == edge.source().id() && nodesList[j].id() == edge.target().id()) || (nodesList[j].id() == edge.source().id() && nodesList[i].id() == edge.target().id()))
+			edges.forEach(function(edge){
+				if ((nodesList[i].id == edge.source && nodesList[j].id == edge.target || (nodesList[j].id == edge.source && nodesList[i].id == edge.target)))
 					adjacencyMatrix[i][j] = 1;
 			});
 		}
@@ -213,12 +192,12 @@ of the j-th node in graph B is greater or equal to the i-th node in
 graph A
 @return - M_0:
 */
-function initMatrix(){
+function initMatrix(nodesList){
 	var M_0 = [];
-	for (i=0; i<nodesListA.length; i++){
+	for (i=0; i<nodesList.length; i++){
 		M_0.push([]);
-		for (j=0; j<nodesListB.length; j++){
-			if (nodesListB[j].degree() >= nodesListA[i].degree())
+		for (j=0; j<nodesList.length; j++){
+			if (nodesList[j].degree >= nodesList[i].degree)
 				M_0[i].push(1);
 			else
 				M_0[i].push(0);
@@ -234,7 +213,7 @@ A '1' in the d-th row in the same column as a '0' in F
 @return - boolean: True if the condition holds anywhere in M[d-1], false otherwise;
 */
 function mdjCheck(){
-	for (var i=0; i<pb; i++){
+	for (var i=0; i<p; i++){
 		//console.log("mdj check");
 		if ((M[d-1][i] === 1) && (F[i] === 0))
 			return true;
@@ -243,12 +222,12 @@ function mdjCheck(){
 }
 
 /*
-Check each entry in the d-th row from k to pb to see if the following condition exists:
+Check each entry in the d-th row from k to p to see if the following condition exists:
 A '1' in the d-th row in the same column as a '0' in F
 @return - boolean: True if the condition holds anywhere in M[d-1], false otherwise;
 */
 function kCheck(){
-	for (var i = k[d]-1; i<pb; i++){
+	for (var i = k[d]-1; i<p; i++){
 		//console.log("k check");		
 		if ((M[d-1][i] === 1) && (F[i] === 0))
 			return true;
@@ -269,8 +248,8 @@ function isoCheck(){
 	var MBT = MB[0].map((col,i) => MB.map(row => row[i]));	// Transpose MBT
 	var C = matrixMult(M,MBT);
 	
-	for (var i=0; i<pa; i++){
-		for (var j=0; j<pa; j++){
+	for (var i=0; i<p; i++){
+		for (var j=0; j<p; j++){
 			if (A[i][j] == 1){
 				if (C[i][j] != 1)
 					isoBool = false;
