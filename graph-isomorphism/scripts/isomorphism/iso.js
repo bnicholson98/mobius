@@ -74,7 +74,6 @@ function iso(graphA, graphB){
 					if (d<pa){						
 						depthInc();					
 					}else{							
-						isoCheckCount++;
 						isoCheck();	
 						complete = true;
 						d = -1;					

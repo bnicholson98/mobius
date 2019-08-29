@@ -17,9 +17,6 @@ var cy1 = cytoscape({
     },
 	{ // edge ab
       data: { id: 'ac', source: 'a', target: 'c' }
-    },
-	{ // edge ab
-      data: { id: 'cb', source: 'c', target: 'b' }
     }
   ],
 
@@ -71,13 +68,10 @@ var cy2 = cytoscape({
       data: { id: 'xy', source: 'x', target: 'y' }
     },
 	{ // edge xy
-      data: { id: 'yz', source: 'y', target: 'z' }
+      data: { id: 'xw', source: 'x', target: 'w' }
     },
 	{ // edge xy
-      data: { id: 'zw', source: 'z', target: 'w' }
-	},
-	{ // edge xy
-      data: { id: 'xz', source: 'x', target: 'z' }
+      data: { id: 'yz', source: 'y', target: 'z' }
 	}
   ],
 
@@ -111,6 +105,37 @@ var cy2 = cytoscape({
 subgraphIso(cy1, cy2);
 console.log(iso(cy1, cy2));
 
+class Vertex {
+	constructor(degree) {
+		Vertex.idCount = (Vertex.idCount || 0);
+		this.id = Vertex.idCount;
+		Vertex.idCount++;
+		this.degree = degree;
+	}
+}
+class Edge {
+	constructor(source, target) {
+		this.source = source;
+		this.target = target;
+	}
+}
+/*
+let degreeSeq = [1,1,1,2,2,3];
+
+let degreeSeq = [1,1,2,2];
+degreeSeq = degreeSeq.sort( (a,b) => b-a);
+let vertArr = [];
+degreeSeq.forEach( degree => vertArr.push(new Vertex(degree)));
+
+let edgeArr1 = [new Edge(0,3), new Edge(0,4), new Edge(1,0), new Edge(2,1), new Edge(2,5)];
+let edgeArr2 = [new Edge(0,3), new Edge(0,4), new Edge(1,2), new Edge(1,5), new Edge(2,0)];
+let edgeArr3 = [new Edge(0,1), new Edge(0,4), new Edge(0,2), new Edge(1,5), new Edge(2,3)];
+
+
+let edgeArr1 = [new Edge(0,1), new Edge(0,2), new Edge(1,3)];
+let edgeArr2 = [new Edge(1,0), new Edge(0,3), new Edge(1,2)];
+console.log(isoV2(vertArr, edgeArr1, edgeArr2));
+*/
 
 
 

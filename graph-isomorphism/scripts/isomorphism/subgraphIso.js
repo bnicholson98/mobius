@@ -27,7 +27,7 @@ function subgraphIso(graphA, graphB){
 	var pb = B.length;
 	
 	var M = initMatrix();
-	
+	console.table(M);
 	var mString = JSON.stringify(M);
 	M_copies[d] = JSON.parse(mString);
 	

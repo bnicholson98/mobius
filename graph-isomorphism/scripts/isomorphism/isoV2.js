@@ -14,9 +14,10 @@ function isoV2(nodeList, edgesA, edgesB){
 	var complete = false;
 	
 	// create an adjacency matrix for each graph
-	var A = matrixOf(edgesA, nodesList);
-	var B = matrixOf(edgesB, nodesList);
-	
+	var A = matrixOf(edgesA, nodeList);
+	var B = matrixOf(edgesB, nodeList);
+	console.table(A);
+	console.table(B);
 	// Number of nodes in graph A and B respectively
 	var p = nodeList.length;
 	
@@ -230,11 +231,13 @@ function isoV2(nodeList, edgesA, edgesB){
 	*/
 	function isoCheck(){
 		isoBool = true;
-		
+		console.table(M);
 		var MB = matrixMult(M,B);
+		console.table(MB);
 		var MBT = MB[0].map((col,i) => MB.map(row => row[i]));	// Transpose MBT
+		console.table(MBT);
 		var C = matrixMult(M,MBT);
-		
+		console.table(C);
 		for (var i=0; i<p; i++){
 			for (var j=0; j<p; j++){
 				if (A[i][j] == 1){
